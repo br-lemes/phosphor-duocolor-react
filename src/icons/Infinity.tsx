@@ -11,7 +11,7 @@ import IconBase, { RenderFunction } from "../lib/IconBase";
 
 const pathsByWeight = new Map<IconWeight, PaintFunction>();
 
-pathsByWeight.set("bold", (color: string) => (
+pathsByWeight.set("bold", (color: string, duocolor: string) => (
   <>
     <path
       d="M101.3,158.2l-3.4,3.7a47.9,47.9,0,1,1,0-67.8l60.2,67.8a47.9,47.9,0,1,0,0-67.8l-3.4,3.7"
@@ -24,7 +24,20 @@ pathsByWeight.set("bold", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("duotone", (color: string) => (
+pathsByWeight.set("duotone", (color: string, duocolor: string) => (
+  <>
+    <path
+      d="M106.6,152.1l-8.7,9.8a47.9,47.9,0,1,1,0-67.8l60.2,67.8a47.9,47.9,0,1,0,0-67.8l-8.7,9.8"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+  </>
+));
+
+pathsByWeight.set("duocolor", (color: string, duocolor: string) => (
   <>
     <path
       d="M106.6,152.1l-8.7,9.8a47.9,47.9,0,1,1,0-67.8l60.2,67.8a47.9,47.9,0,1,0,0-67.8l-8.7,9.8"
@@ -43,7 +56,7 @@ pathsByWeight.set("fill", () => (
   </>
 ));
 
-pathsByWeight.set("light", (color: string) => (
+pathsByWeight.set("light", (color: string, duocolor: string) => (
   <>
     <path
       d="M106.6,152.1l-8.7,9.8a47.9,47.9,0,1,1,0-67.8l60.2,67.8a47.9,47.9,0,1,0,0-67.8l-8.7,9.8"
@@ -56,7 +69,7 @@ pathsByWeight.set("light", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("thin", (color: string) => (
+pathsByWeight.set("thin", (color: string, duocolor: string) => (
   <>
     <path
       d="M106.6,152.1l-8.7,9.8a47.9,47.9,0,1,1,0-67.8l60.2,67.8a47.9,47.9,0,1,0,0-67.8l-8.7,9.8"
@@ -69,7 +82,7 @@ pathsByWeight.set("thin", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("regular", (color: string) => (
+pathsByWeight.set("regular", (color: string, duocolor: string) => (
   <>
     <path
       d="M106.6,152.1l-8.7,9.8a47.9,47.9,0,1,1,0-67.8l60.2,67.8a47.9,47.9,0,1,0,0-67.8l-8.7,9.8"
@@ -82,8 +95,11 @@ pathsByWeight.set("regular", (color: string) => (
   </>
 ));
 
-const renderPath: RenderFunction = (weight: IconWeight, color: string) =>
-  renderPathForWeight(weight, color, pathsByWeight);
+const renderPath: RenderFunction = (
+  weight: IconWeight,
+  color: string,
+  duocolor: string
+) => renderPathForWeight(weight, color, duocolor, pathsByWeight);
 
 const Infinity = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
   <IconBase ref={ref} {...props} renderPath={renderPath} />

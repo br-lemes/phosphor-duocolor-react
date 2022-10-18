@@ -11,7 +11,7 @@ import IconBase, { RenderFunction } from "../lib/IconBase";
 
 const pathsByWeight = new Map<IconWeight, PaintFunction>();
 
-pathsByWeight.set("bold", (color: string) => (
+pathsByWeight.set("bold", (color: string, duocolor: string) => (
   <>
     <rect
       x="64"
@@ -50,9 +50,49 @@ pathsByWeight.set("bold", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("duotone", (color: string) => (
+pathsByWeight.set("duotone", (color: string, duocolor: string) => (
   <>
     <rect x="64" y="56" width="128" height="144" opacity="0.2" />
+    <rect
+      x="64"
+      y="24"
+      width="128"
+      height="208"
+      rx="16"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="64"
+      y1="56"
+      x2="192"
+      y2="56"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="64"
+      y1="200"
+      x2="192"
+      y2="200"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+  </>
+));
+
+pathsByWeight.set("duocolor", (color: string, duocolor: string) => (
+  <>
+    <rect x="64" y="56" width="128" height="144" fill={duocolor} />
     <rect
       x="64"
       y="24"
@@ -96,7 +136,7 @@ pathsByWeight.set("fill", () => (
   </>
 ));
 
-pathsByWeight.set("light", (color: string) => (
+pathsByWeight.set("light", (color: string, duocolor: string) => (
   <>
     <rect
       x="64"
@@ -135,7 +175,7 @@ pathsByWeight.set("light", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("thin", (color: string) => (
+pathsByWeight.set("thin", (color: string, duocolor: string) => (
   <>
     <rect
       x="64"
@@ -174,7 +214,7 @@ pathsByWeight.set("thin", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("regular", (color: string) => (
+pathsByWeight.set("regular", (color: string, duocolor: string) => (
   <>
     <rect
       x="64"
@@ -213,8 +253,11 @@ pathsByWeight.set("regular", (color: string) => (
   </>
 ));
 
-const renderPath: RenderFunction = (weight: IconWeight, color: string) =>
-  renderPathForWeight(weight, color, pathsByWeight);
+const renderPath: RenderFunction = (
+  weight: IconWeight,
+  color: string,
+  duocolor: string
+) => renderPathForWeight(weight, color, duocolor, pathsByWeight);
 
 const DeviceMobile = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
   <IconBase ref={ref} {...props} renderPath={renderPath} />

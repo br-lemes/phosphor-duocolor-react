@@ -11,7 +11,7 @@ import IconBase, { RenderFunction } from "../lib/IconBase";
 
 const pathsByWeight = new Map<IconWeight, PaintFunction>();
 
-pathsByWeight.set("bold", (color: string) => (
+pathsByWeight.set("bold", (color: string, duocolor: string) => (
   <>
     <ellipse
       cx="96"
@@ -84,12 +84,90 @@ pathsByWeight.set("bold", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("duotone", (color: string) => (
+pathsByWeight.set("duotone", (color: string, duocolor: string) => (
   <>
     <ellipse cx="96" cy="84" rx="80" ry="36" opacity="0.2" />
     <path
       d="M176,96.7c36.5,3.4,64,17.9,64,35.3,0,19.9-35.8,36-80,36-19.6,0-37.6-3.2-51.5-8.4h0C146.8,156.9,176,142,176,124Z"
       opacity="0.2"
+    />
+    <ellipse
+      cx="96"
+      cy="84"
+      rx="80"
+      ry="36"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <path
+      d="M16,84v40c0,19.9,35.8,36,80,36s80-16.1,80-36V84"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="64"
+      y1="117"
+      x2="64"
+      y2="157"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <path
+      d="M176,96.7c36.5,3.4,64,17.9,64,35.3,0,19.9-35.8,36-80,36-19.6,0-37.6-3.2-51.5-8.4"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <path
+      d="M80,159.3V172c0,19.9,35.8,36,80,36s80-16.1,80-36V132"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="192"
+      y1="165"
+      x2="192"
+      y2="205"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="128"
+      y1="117"
+      x2="128"
+      y2="205"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+  </>
+));
+
+pathsByWeight.set("duocolor", (color: string, duocolor: string) => (
+  <>
+    <ellipse cx="96" cy="84" rx="80" ry="36" fill={duocolor} />
+    <path
+      d="M176,96.7c36.5,3.4,64,17.9,64,35.3,0,19.9-35.8,36-80,36-19.6,0-37.6-3.2-51.5-8.4h0C146.8,156.9,176,142,176,124Z"
+      fill={duocolor}
     />
     <ellipse
       cx="96"
@@ -168,7 +246,7 @@ pathsByWeight.set("fill", () => (
   </>
 ));
 
-pathsByWeight.set("light", (color: string) => (
+pathsByWeight.set("light", (color: string, duocolor: string) => (
   <>
     <ellipse
       cx="96"
@@ -241,7 +319,7 @@ pathsByWeight.set("light", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("thin", (color: string) => (
+pathsByWeight.set("thin", (color: string, duocolor: string) => (
   <>
     <ellipse
       cx="96"
@@ -314,7 +392,7 @@ pathsByWeight.set("thin", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("regular", (color: string) => (
+pathsByWeight.set("regular", (color: string, duocolor: string) => (
   <>
     <ellipse
       cx="96"
@@ -387,8 +465,11 @@ pathsByWeight.set("regular", (color: string) => (
   </>
 ));
 
-const renderPath: RenderFunction = (weight: IconWeight, color: string) =>
-  renderPathForWeight(weight, color, pathsByWeight);
+const renderPath: RenderFunction = (
+  weight: IconWeight,
+  color: string,
+  duocolor: string
+) => renderPathForWeight(weight, color, duocolor, pathsByWeight);
 
 const Coins = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
   <IconBase ref={ref} {...props} renderPath={renderPath} />

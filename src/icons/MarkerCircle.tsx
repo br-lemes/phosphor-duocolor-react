@@ -11,7 +11,7 @@ import IconBase, { RenderFunction } from "../lib/IconBase";
 
 const pathsByWeight = new Map<IconWeight, PaintFunction>();
 
-pathsByWeight.set("bold", (color: string) => (
+pathsByWeight.set("bold", (color: string, duocolor: string) => (
   <>
     <circle
       cx="128"
@@ -49,11 +49,54 @@ pathsByWeight.set("bold", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("duotone", (color: string) => (
+pathsByWeight.set("duotone", (color: string, duocolor: string) => (
   <>
     <path
       d="M176,211.2a96,96,0,1,0-96,0h0V176a8,8,0,0,1,8-8h8V144a8,8,0,0,1,8-8h4.2l12-57.6c1.7-8.5,13.9-8.5,15.6,0l12,57.6H152a8,8,0,0,1,8,8v24h8a8,8,0,0,1,8,8v35.2Z"
       opacity="0.2"
+    />
+    <circle
+      cx="128"
+      cy="128"
+      r="96"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <path
+      d="M176,211.2V176a8,8,0,0,0-8-8H88a8,8,0,0,0-8,8v35.2"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <path
+      d="M96,168V144a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v24"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <path
+      d="M147.8,136l-12-57.6c-1.7-8.5-13.9-8.5-15.6,0l-12,57.6"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+  </>
+));
+
+pathsByWeight.set("duocolor", (color: string, duocolor: string) => (
+  <>
+    <path
+      d="M176,211.2a96,96,0,1,0-96,0h0V176a8,8,0,0,1,8-8h8V144a8,8,0,0,1,8-8h4.2l12-57.6c1.7-8.5,13.9-8.5,15.6,0l12,57.6H152a8,8,0,0,1,8,8v24h8a8,8,0,0,1,8,8v35.2Z"
+      fill={duocolor}
     />
     <circle
       cx="128"
@@ -98,7 +141,7 @@ pathsByWeight.set("fill", () => (
   </>
 ));
 
-pathsByWeight.set("light", (color: string) => (
+pathsByWeight.set("light", (color: string, duocolor: string) => (
   <>
     <circle
       cx="128"
@@ -137,7 +180,7 @@ pathsByWeight.set("light", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("thin", (color: string) => (
+pathsByWeight.set("thin", (color: string, duocolor: string) => (
   <>
     <circle
       cx="128"
@@ -176,7 +219,7 @@ pathsByWeight.set("thin", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("regular", (color: string) => (
+pathsByWeight.set("regular", (color: string, duocolor: string) => (
   <>
     <circle
       cx="128"
@@ -215,8 +258,11 @@ pathsByWeight.set("regular", (color: string) => (
   </>
 ));
 
-const renderPath: RenderFunction = (weight: IconWeight, color: string) =>
-  renderPathForWeight(weight, color, pathsByWeight);
+const renderPath: RenderFunction = (
+  weight: IconWeight,
+  color: string,
+  duocolor: string
+) => renderPathForWeight(weight, color, duocolor, pathsByWeight);
 
 const MarkerCircle = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
   <IconBase ref={ref} {...props} renderPath={renderPath} />

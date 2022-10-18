@@ -11,7 +11,7 @@ import IconBase, { RenderFunction } from "../lib/IconBase";
 
 const pathsByWeight = new Map<IconWeight, PaintFunction>();
 
-pathsByWeight.set("bold", (color: string) => (
+pathsByWeight.set("bold", (color: string, duocolor: string) => (
   <>
     <line
       x1="40"
@@ -54,11 +54,58 @@ pathsByWeight.set("bold", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("duotone", (color: string) => (
+pathsByWeight.set("duotone", (color: string, duocolor: string) => (
   <>
     <path
       d="M128,32S76,64,76,108a52,52,0,0,0,52,52,23.9,23.9,0,0,1-24-24c0-24,24-40,24-40s24,16,24,40a23.9,23.9,0,0,1-24,24,52,52,0,0,0,52-52C180,64,128,32,128,32Z"
       opacity="0.2"
+    />
+    <path
+      d="M180,108a52,52,0,0,1-104,0c0-44,52-76,52-76S180,64,180,108Z"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="40"
+      y1="168"
+      x2="216"
+      y2="224"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="216"
+      y1="168"
+      x2="40"
+      y2="224"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <path
+      d="M152,136a24,24,0,0,1-48,0c0-24,24-40,24-40S152,112,152,136Z"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+  </>
+));
+
+pathsByWeight.set("duocolor", (color: string, duocolor: string) => (
+  <>
+    <path
+      d="M128,32S76,64,76,108a52,52,0,0,0,52,52,23.9,23.9,0,0,1-24-24c0-24,24-40,24-40s24,16,24,40a23.9,23.9,0,0,1-24,24,52,52,0,0,0,52-52C180,64,128,32,128,32Z"
+      fill={duocolor}
     />
     <path
       d="M180,108a52,52,0,0,1-104,0c0-44,52-76,52-76S180,64,180,108Z"
@@ -107,7 +154,7 @@ pathsByWeight.set("fill", () => (
   </>
 ));
 
-pathsByWeight.set("light", (color: string) => (
+pathsByWeight.set("light", (color: string, duocolor: string) => (
   <>
     <line
       x1="40"
@@ -150,7 +197,7 @@ pathsByWeight.set("light", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("thin", (color: string) => (
+pathsByWeight.set("thin", (color: string, duocolor: string) => (
   <>
     <line
       x1="40"
@@ -193,7 +240,7 @@ pathsByWeight.set("thin", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("regular", (color: string) => (
+pathsByWeight.set("regular", (color: string, duocolor: string) => (
   <>
     <line
       x1="40"
@@ -236,8 +283,11 @@ pathsByWeight.set("regular", (color: string) => (
   </>
 ));
 
-const renderPath: RenderFunction = (weight: IconWeight, color: string) =>
-  renderPathForWeight(weight, color, pathsByWeight);
+const renderPath: RenderFunction = (
+  weight: IconWeight,
+  color: string,
+  duocolor: string
+) => renderPathForWeight(weight, color, duocolor, pathsByWeight);
 
 const Campfire = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
   <IconBase ref={ref} {...props} renderPath={renderPath} />

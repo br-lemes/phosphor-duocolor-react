@@ -11,7 +11,7 @@ import IconBase, { RenderFunction } from "../lib/IconBase";
 
 const pathsByWeight = new Map<IconWeight, PaintFunction>();
 
-pathsByWeight.set("bold", (color: string) => (
+pathsByWeight.set("bold", (color: string, duocolor: string) => (
   <>
     <rect
       x="101.1"
@@ -68,7 +68,7 @@ pathsByWeight.set("bold", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("duotone", (color: string) => (
+pathsByWeight.set("duotone", (color: string, duocolor: string) => (
   <>
     <rect
       x="99.7"
@@ -105,6 +105,99 @@ pathsByWeight.set("duotone", (color: string) => (
       rx="8"
       transform="translate(-98.3 146.7) rotate(-45)"
       opacity="0.2"
+    />
+    <rect
+      x="99.7"
+      y="35.7"
+      width="56.6"
+      height="56.57"
+      rx="8"
+      transform="translate(-7.8 109.3) rotate(-45)"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <rect
+      x="163.7"
+      y="99.7"
+      width="56.6"
+      height="56.57"
+      rx="8"
+      transform="translate(-34.3 173.3) rotate(-45)"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <rect
+      x="35.7"
+      y="99.7"
+      width="56.6"
+      height="56.57"
+      rx="8"
+      transform="translate(-71.8 82.7) rotate(-45)"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <rect
+      x="99.7"
+      y="163.7"
+      width="56.6"
+      height="56.57"
+      rx="8"
+      transform="translate(-98.3 146.7) rotate(-45)"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+  </>
+));
+
+pathsByWeight.set("duocolor", (color: string, duocolor: string) => (
+  <>
+    <rect
+      x="99.7"
+      y="35.7"
+      width="56.6"
+      height="56.57"
+      rx="8"
+      transform="translate(-7.8 109.3) rotate(-45)"
+      fill={duocolor}
+    />
+    <rect
+      x="163.7"
+      y="99.7"
+      width="56.6"
+      height="56.57"
+      rx="8"
+      transform="translate(-34.3 173.3) rotate(-45)"
+      fill={duocolor}
+    />
+    <rect
+      x="35.7"
+      y="99.7"
+      width="56.6"
+      height="56.57"
+      rx="8"
+      transform="translate(-71.8 82.7) rotate(-45)"
+      fill={duocolor}
+    />
+    <rect
+      x="99.7"
+      y="163.7"
+      width="56.6"
+      height="56.57"
+      rx="8"
+      transform="translate(-98.3 146.7) rotate(-45)"
+      fill={duocolor}
     />
     <rect
       x="99.7"
@@ -167,7 +260,7 @@ pathsByWeight.set("fill", () => (
   </>
 ));
 
-pathsByWeight.set("light", (color: string) => (
+pathsByWeight.set("light", (color: string, duocolor: string) => (
   <>
     <rect
       x="99.7"
@@ -224,7 +317,7 @@ pathsByWeight.set("light", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("thin", (color: string) => (
+pathsByWeight.set("thin", (color: string, duocolor: string) => (
   <>
     <rect
       x="99.7"
@@ -281,7 +374,7 @@ pathsByWeight.set("thin", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("regular", (color: string) => (
+pathsByWeight.set("regular", (color: string, duocolor: string) => (
   <>
     <rect
       x="99.7"
@@ -338,8 +431,11 @@ pathsByWeight.set("regular", (color: string) => (
   </>
 ));
 
-const renderPath: RenderFunction = (weight: IconWeight, color: string) =>
-  renderPathForWeight(weight, color, pathsByWeight);
+const renderPath: RenderFunction = (
+  weight: IconWeight,
+  color: string,
+  duocolor: string
+) => renderPathForWeight(weight, color, duocolor, pathsByWeight);
 
 const DiamondsFour = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
   <IconBase ref={ref} {...props} renderPath={renderPath} />

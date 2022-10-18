@@ -11,7 +11,7 @@ import IconBase, { RenderFunction } from "../lib/IconBase";
 
 const pathsByWeight = new Map<IconWeight, PaintFunction>();
 
-pathsByWeight.set("bold", (color: string) => (
+pathsByWeight.set("bold", (color: string, duocolor: string) => (
   <>
     <circle
       cx="168"
@@ -45,11 +45,60 @@ pathsByWeight.set("bold", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("duotone", (color: string) => (
+pathsByWeight.set("duotone", (color: string, duocolor: string) => (
   <>
     <path
       d="M158.1,151.2a63.9,63.9,0,0,1-53.3-53.3h0L28.1,202.5a7.9,7.9,0,0,0,.8,10.4l14.2,14.2a7.9,7.9,0,0,0,10.4.8l104.6-76.7Z"
       opacity="0.2"
+    />
+    <circle
+      cx="168"
+      cy="88"
+      r="64"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="213.3"
+      y1="133.3"
+      x2="122.7"
+      y2="42.7"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="100"
+      y1="156"
+      x2="88"
+      y2="168"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <path
+      d="M104.8,97.9,28.1,202.5a7.9,7.9,0,0,0,.8,10.4l14.2,14.2a7.9,7.9,0,0,0,10.4.8l104.6-76.7"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+  </>
+));
+
+pathsByWeight.set("duocolor", (color: string, duocolor: string) => (
+  <>
+    <path
+      d="M158.1,151.2a63.9,63.9,0,0,1-53.3-53.3h0L28.1,202.5a7.9,7.9,0,0,0,.8,10.4l14.2,14.2a7.9,7.9,0,0,0,10.4.8l104.6-76.7Z"
+      fill={duocolor}
     />
     <circle
       cx="168"
@@ -100,7 +149,7 @@ pathsByWeight.set("fill", () => (
   </>
 ));
 
-pathsByWeight.set("light", (color: string) => (
+pathsByWeight.set("light", (color: string, duocolor: string) => (
   <>
     <circle
       cx="168"
@@ -145,7 +194,7 @@ pathsByWeight.set("light", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("thin", (color: string) => (
+pathsByWeight.set("thin", (color: string, duocolor: string) => (
   <>
     <circle
       cx="168"
@@ -190,7 +239,7 @@ pathsByWeight.set("thin", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("regular", (color: string) => (
+pathsByWeight.set("regular", (color: string, duocolor: string) => (
   <>
     <circle
       cx="168"
@@ -235,8 +284,11 @@ pathsByWeight.set("regular", (color: string) => (
   </>
 ));
 
-const renderPath: RenderFunction = (weight: IconWeight, color: string) =>
-  renderPathForWeight(weight, color, pathsByWeight);
+const renderPath: RenderFunction = (
+  weight: IconWeight,
+  color: string,
+  duocolor: string
+) => renderPathForWeight(weight, color, duocolor, pathsByWeight);
 
 const MicrophoneStage = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
   <IconBase ref={ref} {...props} renderPath={renderPath} />

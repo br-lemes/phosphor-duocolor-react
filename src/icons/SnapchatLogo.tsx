@@ -11,7 +11,7 @@ import IconBase, { RenderFunction } from "../lib/IconBase";
 
 const pathsByWeight = new Map<IconWeight, PaintFunction>();
 
-pathsByWeight.set("bold", (color: string) => (
+pathsByWeight.set("bold", (color: string, duocolor: string) => (
   <>
     <path
       d="M18.5,188.7S72,163.9,72,80a56,56,0,0,1,112,0c0,83.9,53.5,108.7,53.5,108.7-9.3,8.7-29,3.4-40.2,9.5s-17,25.6-29.5,28.8S141,216,128,216s-27.7,14.1-39.8,11-18.5-22.7-29.5-28.8S27.8,197.4,18.5,188.7Z"
@@ -46,11 +46,50 @@ pathsByWeight.set("bold", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("duotone", (color: string) => (
+pathsByWeight.set("duotone", (color: string, duocolor: string) => (
   <>
     <path
       d="M18.5,188.7S72,163.9,72,80a56,56,0,0,1,112,0c0,83.9,53.5,108.7,53.5,108.7-9.3,8.7-29,3.4-40.2,9.5s-17,25.6-29.5,28.8S141,216,128,216s-27.7,14.1-39.8,11-18.5-22.7-29.5-28.8S27.8,197.4,18.5,188.7Z"
       opacity="0.2"
+    />
+    <path
+      d="M18.5,188.7S72,163.9,72,80a56,56,0,0,1,112,0c0,83.9,53.5,108.7,53.5,108.7-9.3,8.7-29,3.4-40.2,9.5s-17,25.6-29.5,28.8S141,216,128,216s-27.7,14.1-39.8,11-18.5-22.7-29.5-28.8S27.8,197.4,18.5,188.7Z"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="189.3"
+      y1="122.7"
+      x2="216"
+      y2="112"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="66.7"
+      y1="122.7"
+      x2="40"
+      y2="112"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+  </>
+));
+
+pathsByWeight.set("duocolor", (color: string, duocolor: string) => (
+  <>
+    <path
+      d="M18.5,188.7S72,163.9,72,80a56,56,0,0,1,112,0c0,83.9,53.5,108.7,53.5,108.7-9.3,8.7-29,3.4-40.2,9.5s-17,25.6-29.5,28.8S141,216,128,216s-27.7,14.1-39.8,11-18.5-22.7-29.5-28.8S27.8,197.4,18.5,188.7Z"
+      fill={duocolor}
     />
     <path
       d="M18.5,188.7S72,163.9,72,80a56,56,0,0,1,112,0c0,83.9,53.5,108.7,53.5,108.7-9.3,8.7-29,3.4-40.2,9.5s-17,25.6-29.5,28.8S141,216,128,216s-27.7,14.1-39.8,11-18.5-22.7-29.5-28.8S27.8,197.4,18.5,188.7Z"
@@ -91,7 +130,7 @@ pathsByWeight.set("fill", () => (
   </>
 ));
 
-pathsByWeight.set("light", (color: string) => (
+pathsByWeight.set("light", (color: string, duocolor: string) => (
   <>
     <path
       d="M18.5,188.7S72,163.9,72,80a56,56,0,0,1,112,0c0,83.9,53.5,108.7,53.5,108.7-9.3,8.7-29,3.4-40.2,9.5s-17,25.6-29.5,28.8S141,216,128,216s-27.7,14.1-39.8,11-18.5-22.7-29.5-28.8S27.8,197.4,18.5,188.7Z"
@@ -126,7 +165,7 @@ pathsByWeight.set("light", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("thin", (color: string) => (
+pathsByWeight.set("thin", (color: string, duocolor: string) => (
   <>
     <path
       d="M18.5,188.7S72,163.9,72,80a56,56,0,0,1,112,0c0,83.9,53.5,108.7,53.5,108.7-9.3,8.7-29,3.4-40.2,9.5s-17,25.6-29.5,28.8S141,216,128,216s-27.7,14.1-39.8,11-18.5-22.7-29.5-28.8S27.8,197.4,18.5,188.7Z"
@@ -161,7 +200,7 @@ pathsByWeight.set("thin", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("regular", (color: string) => (
+pathsByWeight.set("regular", (color: string, duocolor: string) => (
   <>
     <path
       d="M18.5,188.7S72,163.9,72,80a56,56,0,0,1,112,0c0,83.9,53.5,108.7,53.5,108.7-9.3,8.7-29,3.4-40.2,9.5s-17,25.6-29.5,28.8S141,216,128,216s-27.7,14.1-39.8,11-18.5-22.7-29.5-28.8S27.8,197.4,18.5,188.7Z"
@@ -196,8 +235,11 @@ pathsByWeight.set("regular", (color: string) => (
   </>
 ));
 
-const renderPath: RenderFunction = (weight: IconWeight, color: string) =>
-  renderPathForWeight(weight, color, pathsByWeight);
+const renderPath: RenderFunction = (
+  weight: IconWeight,
+  color: string,
+  duocolor: string
+) => renderPathForWeight(weight, color, duocolor, pathsByWeight);
 
 const SnapchatLogo = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
   <IconBase ref={ref} {...props} renderPath={renderPath} />

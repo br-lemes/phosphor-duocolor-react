@@ -11,7 +11,7 @@ import IconBase, { RenderFunction } from "../lib/IconBase";
 
 const pathsByWeight = new Map<IconWeight, PaintFunction>();
 
-pathsByWeight.set("bold", (color: string) => (
+pathsByWeight.set("bold", (color: string, duocolor: string) => (
   <>
     <path
       d="M177,68.8c37.3,7.8,63,24.2,63,43.2,0,26.5-50.1,48-112,48S16,138.5,16,112c0-19,25.9-35.5,63.4-43.2"
@@ -73,11 +73,69 @@ pathsByWeight.set("bold", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("duotone", (color: string) => (
+pathsByWeight.set("duotone", (color: string, duocolor: string) => (
   <>
     <path
       d="M177,68.8h0A56.7,56.7,0,0,1,184,96v3.9a15.8,15.8,0,0,1-12.4,15.5A191.4,191.4,0,0,1,128,120a191.4,191.4,0,0,1-43.6-4.6A15.8,15.8,0,0,1,72,99.9V96.8a56.8,56.8,0,0,1,7.4-28h0C41.9,76.5,16,93,16,112c0,26.5,50.1,48,112,48s112-21.5,112-48C240,93,214.3,76.6,177,68.8Z"
       opacity="0.2"
+    />
+    <line
+      x1="168.8"
+      y1="188.7"
+      x2="172.7"
+      y2="212.3"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="128"
+      y1="192"
+      x2="128"
+      y2="224"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="87.2"
+      y1="188.7"
+      x2="83.3"
+      y2="212.3"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <path
+      d="M177,68.8c37.3,7.8,63,24.2,63,43.2,0,26.5-50.1,48-112,48S16,138.5,16,112c0-19,25.9-35.5,63.4-43.2"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <path
+      d="M72,99.9a15.8,15.8,0,0,0,12.4,15.5A191.4,191.4,0,0,0,128,120a191.4,191.4,0,0,0,43.6-4.6A15.8,15.8,0,0,0,184,99.9V96a56,56,0,0,0-56.7-56C96.5,40.4,72,66.1,72,96.8Z"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+  </>
+));
+
+pathsByWeight.set("duocolor", (color: string, duocolor: string) => (
+  <>
+    <path
+      d="M177,68.8h0A56.7,56.7,0,0,1,184,96v3.9a15.8,15.8,0,0,1-12.4,15.5A191.4,191.4,0,0,1,128,120a191.4,191.4,0,0,1-43.6-4.6A15.8,15.8,0,0,1,72,99.9V96.8a56.8,56.8,0,0,1,7.4-28h0C41.9,76.5,16,93,16,112c0,26.5,50.1,48,112,48s112-21.5,112-48C240,93,214.3,76.6,177,68.8Z"
+      fill={duocolor}
     />
     <line
       x1="168.8"
@@ -137,7 +195,7 @@ pathsByWeight.set("fill", () => (
   </>
 ));
 
-pathsByWeight.set("light", (color: string) => (
+pathsByWeight.set("light", (color: string, duocolor: string) => (
   <>
     <line
       x1="168.8"
@@ -191,7 +249,7 @@ pathsByWeight.set("light", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("thin", (color: string) => (
+pathsByWeight.set("thin", (color: string, duocolor: string) => (
   <>
     <line
       x1="168.8"
@@ -245,7 +303,7 @@ pathsByWeight.set("thin", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("regular", (color: string) => (
+pathsByWeight.set("regular", (color: string, duocolor: string) => (
   <>
     <line
       x1="168.8"
@@ -299,8 +357,11 @@ pathsByWeight.set("regular", (color: string) => (
   </>
 ));
 
-const renderPath: RenderFunction = (weight: IconWeight, color: string) =>
-  renderPathForWeight(weight, color, pathsByWeight);
+const renderPath: RenderFunction = (
+  weight: IconWeight,
+  color: string,
+  duocolor: string
+) => renderPathForWeight(weight, color, duocolor, pathsByWeight);
 
 const FlyingSaucer = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
   <IconBase ref={ref} {...props} renderPath={renderPath} />

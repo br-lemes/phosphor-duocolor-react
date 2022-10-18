@@ -11,7 +11,7 @@ import IconBase, { RenderFunction } from "../lib/IconBase";
 
 const pathsByWeight = new Map<IconWeight, PaintFunction>();
 
-pathsByWeight.set("bold", (color: string) => (
+pathsByWeight.set("bold", (color: string, duocolor: string) => (
   <>
     <rect
       x="32"
@@ -30,7 +30,7 @@ pathsByWeight.set("bold", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("duotone", (color: string) => (
+pathsByWeight.set("duotone", (color: string, duocolor: string) => (
   <>
     <rect
       x="32"
@@ -58,13 +58,41 @@ pathsByWeight.set("duotone", (color: string) => (
   </>
 ));
 
+pathsByWeight.set("duocolor", (color: string, duocolor: string) => (
+  <>
+    <rect
+      x="32"
+      y="48"
+      width="192"
+      height="160"
+      rx="16"
+      transform="translate(256) rotate(90)"
+      fill={duocolor}
+    />
+    <rect
+      x="32"
+      y="48"
+      width="192"
+      height="160"
+      rx="16"
+      transform="translate(256) rotate(90)"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <circle cx="128" cy="68" r="12" />
+  </>
+));
+
 pathsByWeight.set("fill", () => (
   <>
     <path d="M192,24H64A24.1,24.1,0,0,0,40,48V208a24.1,24.1,0,0,0,24,24H192a24.1,24.1,0,0,0,24-24V48A24.1,24.1,0,0,0,192,24ZM128,80a12,12,0,1,1,12-12A12,12,0,0,1,128,80Z" />
   </>
 ));
 
-pathsByWeight.set("light", (color: string) => (
+pathsByWeight.set("light", (color: string, duocolor: string) => (
   <>
     <rect
       x="32"
@@ -83,7 +111,7 @@ pathsByWeight.set("light", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("thin", (color: string) => (
+pathsByWeight.set("thin", (color: string, duocolor: string) => (
   <>
     <rect
       x="32"
@@ -102,7 +130,7 @@ pathsByWeight.set("thin", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("regular", (color: string) => (
+pathsByWeight.set("regular", (color: string, duocolor: string) => (
   <>
     <rect
       x="32"
@@ -121,8 +149,11 @@ pathsByWeight.set("regular", (color: string) => (
   </>
 ));
 
-const renderPath: RenderFunction = (weight: IconWeight, color: string) =>
-  renderPathForWeight(weight, color, pathsByWeight);
+const renderPath: RenderFunction = (
+  weight: IconWeight,
+  color: string,
+  duocolor: string
+) => renderPathForWeight(weight, color, duocolor, pathsByWeight);
 
 const DeviceTabletCamera = forwardRef<SVGSVGElement, IconProps>(
   (props, ref) => <IconBase ref={ref} {...props} renderPath={renderPath} />

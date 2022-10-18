@@ -11,7 +11,7 @@ import IconBase, { RenderFunction } from "../lib/IconBase";
 
 const pathsByWeight = new Map<IconWeight, PaintFunction>();
 
-pathsByWeight.set("bold", (color: string) => (
+pathsByWeight.set("bold", (color: string, duocolor: string) => (
   <>
     <path
       d="M67.2,121.2,187.8,47.4A8,8,0,0,1,200,54.3V201.7a8,8,0,0,1-12.2,6.9L67.2,134.8A8,8,0,0,1,67.2,121.2Z"
@@ -35,11 +35,39 @@ pathsByWeight.set("bold", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("duotone", (color: string) => (
+pathsByWeight.set("duotone", (color: string, duocolor: string) => (
   <>
     <path
       d="M67.2,121.2,187.8,47.4A8,8,0,0,1,200,54.3V201.7a8,8,0,0,1-12.2,6.9L67.2,134.8A8,8,0,0,1,67.2,121.2Z"
       opacity="0.2"
+    />
+    <path
+      d="M67.2,121.2,187.8,47.4A8,8,0,0,1,200,54.3V201.7a8,8,0,0,1-12.2,6.9L67.2,134.8A8,8,0,0,1,67.2,121.2Z"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="56"
+      y1="40"
+      x2="56"
+      y2="216"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+  </>
+));
+
+pathsByWeight.set("duocolor", (color: string, duocolor: string) => (
+  <>
+    <path
+      d="M67.2,121.2,187.8,47.4A8,8,0,0,1,200,54.3V201.7a8,8,0,0,1-12.2,6.9L67.2,134.8A8,8,0,0,1,67.2,121.2Z"
+      fill={duocolor}
     />
     <path
       d="M67.2,121.2,187.8,47.4A8,8,0,0,1,200,54.3V201.7a8,8,0,0,1-12.2,6.9L67.2,134.8A8,8,0,0,1,67.2,121.2Z"
@@ -69,7 +97,7 @@ pathsByWeight.set("fill", () => (
   </>
 ));
 
-pathsByWeight.set("light", (color: string) => (
+pathsByWeight.set("light", (color: string, duocolor: string) => (
   <>
     <path
       d="M67.2,121.2,187.8,47.4A8,8,0,0,1,200,54.3V201.7a8,8,0,0,1-12.2,6.9L67.2,134.8A8,8,0,0,1,67.2,121.2Z"
@@ -93,7 +121,7 @@ pathsByWeight.set("light", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("thin", (color: string) => (
+pathsByWeight.set("thin", (color: string, duocolor: string) => (
   <>
     <path
       d="M67.2,121.2,187.8,47.4A8,8,0,0,1,200,54.3V201.7a8,8,0,0,1-12.2,6.9L67.2,134.8A8,8,0,0,1,67.2,121.2Z"
@@ -117,7 +145,7 @@ pathsByWeight.set("thin", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("regular", (color: string) => (
+pathsByWeight.set("regular", (color: string, duocolor: string) => (
   <>
     <path
       d="M67.2,121.2,187.8,47.4A8,8,0,0,1,200,54.3V201.7a8,8,0,0,1-12.2,6.9L67.2,134.8A8,8,0,0,1,67.2,121.2Z"
@@ -141,8 +169,11 @@ pathsByWeight.set("regular", (color: string) => (
   </>
 ));
 
-const renderPath: RenderFunction = (weight: IconWeight, color: string) =>
-  renderPathForWeight(weight, color, pathsByWeight);
+const renderPath: RenderFunction = (
+  weight: IconWeight,
+  color: string,
+  duocolor: string
+) => renderPathForWeight(weight, color, duocolor, pathsByWeight);
 
 const SkipBack = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
   <IconBase ref={ref} {...props} renderPath={renderPath} />

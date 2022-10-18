@@ -11,7 +11,7 @@ import IconBase, { RenderFunction } from "../lib/IconBase";
 
 const pathsByWeight = new Map<IconWeight, PaintFunction>();
 
-pathsByWeight.set("bold", (color: string) => (
+pathsByWeight.set("bold", (color: string, duocolor: string) => (
   <>
     <path
       d="M232,101,128,160,24,101,124.1,44.2a8.3,8.3,0,0,1,7.8,0Z"
@@ -76,11 +76,80 @@ pathsByWeight.set("bold", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("duotone", (color: string) => (
+pathsByWeight.set("duotone", (color: string, duocolor: string) => (
   <>
     <path
       d="M232,165,131.9,221.8a8.3,8.3,0,0,1-7.8,0L24,165l104-59Z"
       opacity="0.2"
+    />
+    <path
+      d="M232,101,128,160,24,101,124.1,44.2a8.3,8.3,0,0,1,7.8,0Z"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <path
+      d="M232,165,131.9,221.8a8.3,8.3,0,0,1-7.8,0L24,165l104-59Z"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="232"
+      y1="101"
+      x2="232"
+      y2="165"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="24"
+      y1="101"
+      x2="24"
+      y2="165"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="128"
+      y1="160"
+      x2="128"
+      y2="222.8"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="128"
+      y1="43.2"
+      x2="128"
+      y2="106"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+  </>
+));
+
+pathsByWeight.set("duocolor", (color: string, duocolor: string) => (
+  <>
+    <path
+      d="M232,165,131.9,221.8a8.3,8.3,0,0,1-7.8,0L24,165l104-59Z"
+      fill={duocolor}
     />
     <path
       d="M232,101,128,160,24,101,124.1,44.2a8.3,8.3,0,0,1,7.8,0Z"
@@ -151,7 +220,7 @@ pathsByWeight.set("fill", () => (
   </>
 ));
 
-pathsByWeight.set("light", (color: string) => (
+pathsByWeight.set("light", (color: string, duocolor: string) => (
   <>
     <path
       d="M232,101,128,160,24,101,124.1,44.2a8.3,8.3,0,0,1,7.8,0Z"
@@ -216,7 +285,7 @@ pathsByWeight.set("light", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("thin", (color: string) => (
+pathsByWeight.set("thin", (color: string, duocolor: string) => (
   <>
     <path
       d="M232,101,128,160,24,101,124.1,44.2a8.3,8.3,0,0,1,7.8,0Z"
@@ -281,7 +350,7 @@ pathsByWeight.set("thin", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("regular", (color: string) => (
+pathsByWeight.set("regular", (color: string, duocolor: string) => (
   <>
     <path
       d="M232,101,128,160,24,101,124.1,44.2a8.3,8.3,0,0,1,7.8,0Z"
@@ -346,8 +415,11 @@ pathsByWeight.set("regular", (color: string) => (
   </>
 ));
 
-const renderPath: RenderFunction = (weight: IconWeight, color: string) =>
-  renderPathForWeight(weight, color, pathsByWeight);
+const renderPath: RenderFunction = (
+  weight: IconWeight,
+  color: string,
+  duocolor: string
+) => renderPathForWeight(weight, color, duocolor, pathsByWeight);
 
 const CodepenLogo = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
   <IconBase ref={ref} {...props} renderPath={renderPath} />

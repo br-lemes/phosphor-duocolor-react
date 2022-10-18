@@ -11,13 +11,26 @@ import IconBase, { RenderFunction } from "../lib/IconBase";
 
 const pathsByWeight = new Map<IconWeight, PaintFunction>();
 
-pathsByWeight.set("bold", () => (
+pathsByWeight.set("bold", (color: string, duocolor: string) => (
   <>
     <circle cx="128" cy="200" r="16" />
   </>
 ));
 
-pathsByWeight.set("duotone", (color: string) => (
+pathsByWeight.set("duotone", (color: string, duocolor: string) => (
+  <>
+    <path
+      d="M20.2,75.9C83.7,28,172.3,28,235.8,75.9A8.1,8.1,0,0,1,237,87.5c-19,22.5-83,97.8-103,121.4a7.9,7.9,0,0,1-12,0C102,185.3,38,110,19,87.5A8.1,8.1,0,0,1,20.2,75.9Z"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+  </>
+));
+
+pathsByWeight.set("duocolor", (color: string, duocolor: string) => (
   <>
     <path
       d="M20.2,75.9C83.7,28,172.3,28,235.8,75.9A8.1,8.1,0,0,1,237,87.5c-19,22.5-83,97.8-103,121.4a7.9,7.9,0,0,1-12,0C102,185.3,38,110,19,87.5A8.1,8.1,0,0,1,20.2,75.9Z"
@@ -36,26 +49,29 @@ pathsByWeight.set("fill", () => (
   </>
 ));
 
-pathsByWeight.set("light", () => (
+pathsByWeight.set("light", (color: string, duocolor: string) => (
   <>
     <circle cx="128" cy="200" r="10" />
   </>
 ));
 
-pathsByWeight.set("thin", () => (
+pathsByWeight.set("thin", (color: string, duocolor: string) => (
   <>
     <circle cx="128" cy="200" r="8" />
   </>
 ));
 
-pathsByWeight.set("regular", () => (
+pathsByWeight.set("regular", (color: string, duocolor: string) => (
   <>
     <circle cx="128" cy="200" r="12" />
   </>
 ));
 
-const renderPath: RenderFunction = (weight: IconWeight, color: string) =>
-  renderPathForWeight(weight, color, pathsByWeight);
+const renderPath: RenderFunction = (
+  weight: IconWeight,
+  color: string,
+  duocolor: string
+) => renderPathForWeight(weight, color, duocolor, pathsByWeight);
 
 const WifiNone = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
   <IconBase ref={ref} {...props} renderPath={renderPath} />

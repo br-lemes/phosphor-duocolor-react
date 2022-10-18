@@ -11,7 +11,7 @@ import IconBase, { RenderFunction } from "../lib/IconBase";
 
 const pathsByWeight = new Map<IconWeight, PaintFunction>();
 
-pathsByWeight.set("bold", (color: string) => (
+pathsByWeight.set("bold", (color: string, duocolor: string) => (
   <>
     <path
       d="M72,24H184a8,8,0,0,1,8,8V77.3a8.1,8.1,0,0,1-1.6,4.8l-20.8,27.8a8.1,8.1,0,0,0-1.6,4.8V224a8,8,0,0,1-8,8H96a8,8,0,0,1-8-8V114.7a8.1,8.1,0,0,0-1.6-4.8L65.6,82.1A8.1,8.1,0,0,1,64,77.3V32A8,8,0,0,1,72,24Z"
@@ -46,11 +46,50 @@ pathsByWeight.set("bold", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("duotone", (color: string) => (
+pathsByWeight.set("duotone", (color: string, duocolor: string) => (
   <>
     <path
       d="M192,77.3a8.1,8.1,0,0,1-1.6,4.8l-20.8,27.8a8.1,8.1,0,0,0-1.6,4.8V224a8,8,0,0,1-8,8H96a8,8,0,0,1-8-8V114.7a8.1,8.1,0,0,0-1.6-4.8L65.6,82.1A8.1,8.1,0,0,1,64,77.3V64H192Z"
       opacity="0.2"
+    />
+    <path
+      d="M72,24H184a8,8,0,0,1,8,8V77.3a8.1,8.1,0,0,1-1.6,4.8l-20.8,27.8a8.1,8.1,0,0,0-1.6,4.8V224a8,8,0,0,1-8,8H96a8,8,0,0,1-8-8V114.7a8.1,8.1,0,0,0-1.6-4.8L65.6,82.1A8.1,8.1,0,0,1,64,77.3V32A8,8,0,0,1,72,24Z"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="128"
+      y1="120"
+      x2="128"
+      y2="152"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="64"
+      y1="64"
+      x2="192"
+      y2="64"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+  </>
+));
+
+pathsByWeight.set("duocolor", (color: string, duocolor: string) => (
+  <>
+    <path
+      d="M192,77.3a8.1,8.1,0,0,1-1.6,4.8l-20.8,27.8a8.1,8.1,0,0,0-1.6,4.8V224a8,8,0,0,1-8,8H96a8,8,0,0,1-8-8V114.7a8.1,8.1,0,0,0-1.6-4.8L65.6,82.1A8.1,8.1,0,0,1,64,77.3V64H192Z"
+      fill={duocolor}
     />
     <path
       d="M72,24H184a8,8,0,0,1,8,8V77.3a8.1,8.1,0,0,1-1.6,4.8l-20.8,27.8a8.1,8.1,0,0,0-1.6,4.8V224a8,8,0,0,1-8,8H96a8,8,0,0,1-8-8V114.7a8.1,8.1,0,0,0-1.6-4.8L65.6,82.1A8.1,8.1,0,0,1,64,77.3V32A8,8,0,0,1,72,24Z"
@@ -91,7 +130,7 @@ pathsByWeight.set("fill", () => (
   </>
 ));
 
-pathsByWeight.set("light", (color: string) => (
+pathsByWeight.set("light", (color: string, duocolor: string) => (
   <>
     <path
       d="M72,24H184a8,8,0,0,1,8,8V77.3a8.1,8.1,0,0,1-1.6,4.8l-20.8,27.8a8.1,8.1,0,0,0-1.6,4.8V224a8,8,0,0,1-8,8H96a8,8,0,0,1-8-8V114.7a8.1,8.1,0,0,0-1.6-4.8L65.6,82.1A8.1,8.1,0,0,1,64,77.3V32A8,8,0,0,1,72,24Z"
@@ -126,7 +165,7 @@ pathsByWeight.set("light", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("thin", (color: string) => (
+pathsByWeight.set("thin", (color: string, duocolor: string) => (
   <>
     <path
       d="M72,24H184a8,8,0,0,1,8,8V77.3a8.1,8.1,0,0,1-1.6,4.8l-20.8,27.8a8.1,8.1,0,0,0-1.6,4.8V224a8,8,0,0,1-8,8H96a8,8,0,0,1-8-8V114.7a8.1,8.1,0,0,0-1.6-4.8L65.6,82.1A8.1,8.1,0,0,1,64,77.3V32A8,8,0,0,1,72,24Z"
@@ -161,7 +200,7 @@ pathsByWeight.set("thin", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("regular", (color: string) => (
+pathsByWeight.set("regular", (color: string, duocolor: string) => (
   <>
     <path
       d="M72,24H184a8,8,0,0,1,8,8V77.3a8.1,8.1,0,0,1-1.6,4.8l-20.8,27.8a8.1,8.1,0,0,0-1.6,4.8V224a8,8,0,0,1-8,8H96a8,8,0,0,1-8-8V114.7a8.1,8.1,0,0,0-1.6-4.8L65.6,82.1A8.1,8.1,0,0,1,64,77.3V32A8,8,0,0,1,72,24Z"
@@ -196,8 +235,11 @@ pathsByWeight.set("regular", (color: string) => (
   </>
 ));
 
-const renderPath: RenderFunction = (weight: IconWeight, color: string) =>
-  renderPathForWeight(weight, color, pathsByWeight);
+const renderPath: RenderFunction = (
+  weight: IconWeight,
+  color: string,
+  duocolor: string
+) => renderPathForWeight(weight, color, duocolor, pathsByWeight);
 
 const Flashlight = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
   <IconBase ref={ref} {...props} renderPath={renderPath} />

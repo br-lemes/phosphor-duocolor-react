@@ -11,7 +11,7 @@ import IconBase, { RenderFunction } from "../lib/IconBase";
 
 const pathsByWeight = new Map<IconWeight, PaintFunction>();
 
-pathsByWeight.set("bold", (color: string) => (
+pathsByWeight.set("bold", (color: string, duocolor: string) => (
   <>
     <circle cx="156" cy="84" r="16" />
     <circle cx="100" cy="84" r="16" />
@@ -59,9 +59,58 @@ pathsByWeight.set("bold", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("duotone", (color: string) => (
+pathsByWeight.set("duotone", (color: string, duocolor: string) => (
   <>
     <path d="M47.9,128h160v20a80,80,0,0,1-160,0Z" opacity="0.2" />
+    <path
+      d="M207.9,148a80,80,0,0,1-160,0V108a80,80,0,0,1,160,0Z"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="207.9"
+      y1="128"
+      x2="47.9"
+      y2="128"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <circle cx="155.9" cy="92" r="12" />
+    <circle cx="99.9" cy="92" r="12" />
+    <line
+      x1="55.9"
+      y1="28"
+      x2="76.2"
+      y2="46.9"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="199.9"
+      y1="28"
+      x2="179.6"
+      y2="46.9"
+      fill="none"
+      stroke={color}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+  </>
+));
+
+pathsByWeight.set("duocolor", (color: string, duocolor: string) => (
+  <>
+    <path d="M47.9,128h160v20a80,80,0,0,1-160,0Z" fill={duocolor} />
     <path
       d="M207.9,148a80,80,0,0,1-160,0V108a80,80,0,0,1,160,0Z"
       fill="none"
@@ -114,7 +163,7 @@ pathsByWeight.set("fill", () => (
   </>
 ));
 
-pathsByWeight.set("light", (color: string) => (
+pathsByWeight.set("light", (color: string, duocolor: string) => (
   <>
     <circle cx="156" cy="84" r="10" />
     <circle cx="100" cy="84" r="10" />
@@ -162,7 +211,7 @@ pathsByWeight.set("light", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("thin", (color: string) => (
+pathsByWeight.set("thin", (color: string, duocolor: string) => (
   <>
     <circle cx="156" cy="84" r="8" />
     <circle cx="100" cy="84" r="8" />
@@ -210,7 +259,7 @@ pathsByWeight.set("thin", (color: string) => (
   </>
 ));
 
-pathsByWeight.set("regular", (color: string) => (
+pathsByWeight.set("regular", (color: string, duocolor: string) => (
   <>
     <path
       d="M208,148a80,80,0,0,1-160,0V108a80,80,0,0,1,160,0Z"
@@ -258,8 +307,11 @@ pathsByWeight.set("regular", (color: string) => (
   </>
 ));
 
-const renderPath: RenderFunction = (weight: IconWeight, color: string) =>
-  renderPathForWeight(weight, color, pathsByWeight);
+const renderPath: RenderFunction = (
+  weight: IconWeight,
+  color: string,
+  duocolor: string
+) => renderPathForWeight(weight, color, duocolor, pathsByWeight);
 
 const BugDroid = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
   <IconBase ref={ref} {...props} renderPath={renderPath} />
