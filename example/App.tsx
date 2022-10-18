@@ -140,6 +140,7 @@ const App = () => {
                   <I weight="bold" color={color} size={48} />
                   <I weight="fill" color={color} size={48} />
                   <I weight="duotone" color={color} size={48} />
+                  <I weight="duocolor" color={color} duocolor="darkorange" size={48} />
                 </div>
               </div>
             );

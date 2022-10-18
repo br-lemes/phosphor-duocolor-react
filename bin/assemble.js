@@ -6,7 +6,7 @@ const chalk = require("chalk");
 const { ASSETS_PATH, COMPONENTS_PATH, INDEX_PATH } = require("./index");
 
 const icons = {};
-const weights = ["thin", "light", "regular", "bold", "fill", "duotone"];
+const weights = ["thin", "light", "regular", "bold", "fill", "duotone", "duocolor"];
 
 function readFile(folder, pathname, weight) {
   const file = fs.readFileSync(pathname);
@@ -26,6 +26,10 @@ function readFile(folder, pathname, weight) {
     .replace(/stroke-linejoin/g, "strokeLinejoin")
     .replace(/stroke-width/g, "strokeWidth")
     .replace(/stroke-miterlimit/g, "strokeMiterlimit");
+  if (weight === "duocolor") {
+    icons[folder][weight] = icons[folder][weight]
+      .replace(/opacity="0.2"/g, "fill={duocolor}");
+  }
 }
 
 function readFiles() {
@@ -47,8 +51,11 @@ function readFiles() {
         case "light":
         case "bold":
         case "fill":
+          readFile(folder, filepath, weight);
+          break;
         case "duotone":
           readFile(folder, filepath, weight);
+          readFile(folder, filepath, "duocolor");
           break;
         default:
           readFile(folder, filepath, "regular");
@@ -61,7 +68,7 @@ function readFiles() {
 function checkFiles(icon) {
   const weightsPresent = Object.keys(icon);
   return (
-    weightsPresent.length === 6 &&
+    weightsPresent.length === 7 &&
     weightsPresent.every(w => weights.includes(w))
   );
 }
@@ -110,7 +117,7 @@ const pathsByWeight = new Map<IconWeight, PaintFunction>();
     for (let weight in icon) {
       componentString += `
 pathsByWeight.set("${weight}", (${
-        weight === "fill" && name !== "DropHalf" ? "" : "color: string"
+        weight === "fill" && name !== "DropHalf" ? "" : "color: string, duocolor: string"
       }) => (
   <>
     ${icon[weight].trim()}
@@ -119,8 +126,8 @@ pathsByWeight.set("${weight}", (${
 `;
     }
     componentString += `
-const renderPath: RenderFunction = (weight: IconWeight, color: string) =>
-  renderPathForWeight(weight, color, pathsByWeight);
+const renderPath: RenderFunction = (weight: IconWeight, color: string, duocolor: string) =>
+  renderPathForWeight(weight, color, duocolor, pathsByWeight);
 
 const ${name} = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
   <IconBase ref={ref} {...props} renderPath={renderPath} />

@@ -3,7 +3,8 @@ import { IconProps, IconWeight, IconContext } from "../lib";
 
 export type RenderFunction = (
   weight: IconWeight,
-  color: string
+  color: string,
+  duocolor: string
 ) => React.ReactNode | null;
 
 interface IconBaseProps extends IconProps {
@@ -17,6 +18,7 @@ const IconBase = forwardRef<SVGSVGElement, IconBaseProps>((props, ref) => {
     size,
     weight,
     mirrored,
+    duocolor,
     children,
     renderPath,
     ...restProps
@@ -27,6 +29,7 @@ const IconBase = forwardRef<SVGSVGElement, IconBaseProps>((props, ref) => {
     size: contextSize,
     weight: contextWeight = "regular",
     mirrored: contextMirrored = false,
+    duocolor: contextDuocolor = "currentColor",
     ...restContext
   } = useContext(IconContext);
 
@@ -45,7 +48,11 @@ const IconBase = forwardRef<SVGSVGElement, IconBaseProps>((props, ref) => {
       {!!alt && <title>{alt}</title>}
       {children}
       <rect width="256" height="256" fill="none" />
-      {renderPath(weight ?? contextWeight, color ?? contextColor)}
+      {renderPath(
+        weight ?? contextWeight,
+        color ?? contextColor,
+        duocolor ?? contextDuocolor
+      )}
     </svg>
   );
 });
